@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('updated_at','desc')->get();
         return view('list', ['posts' => $posts]);
     }
 
@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('create', ['post' => new Post]);
     }
 
     /**
@@ -65,9 +65,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->firstOrFail();
+        return view('create', ['post' => $post, 'isEdit' => true]);
     }
 
     /**
@@ -77,9 +78,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $posts = Post::where('id', $request->id)->firstOrFail();
+        $posts->post_name = $request->title;
+        $posts->author_name = $request->author_name;
+        $posts->content = $request->content;
+        $posts->save();
+        return redirect()->route('post.index');
     }
 
     /**

@@ -27,7 +27,9 @@
                     <td>{{ $post->status}}</td>
                     @adminUser
                     <td>{{ $post->created_by}}</td>
-                    <td>Action</td>
+                    <td>
+                    <a href="{{ url('/post/'. $post->slug .'/edit') }}" class="btn btn-info">Edit</a>
+                    </td>
                     @endadminUser
                 </tr>                
             @endforeach   
