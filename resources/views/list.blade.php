@@ -28,6 +28,7 @@
                     @adminUser
                     <td>{{ $post->created_by}}</td>
                     <td>
+                    <a href="{{ url('/post/'. $post->slug) }}" class="btn btn-success">Show</a>
                     <a href="{{ url('/post/'. $post->slug .'/edit') }}" class="btn btn-info">Edit</a>
                     </td>
                     @endadminUser

@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('updated_at','desc')->get();
+        $posts = Post::where('deleted_at', '0')->orderBy('updated_at','desc')->get();
         return view('list', ['posts' => $posts]);
     }
 
@@ -60,7 +60,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::where([['slug', $slug], ['deleted_at', '0']])->firstOrFail();
         return view('show', ['post' => $post]);
     }
 
@@ -72,7 +72,7 @@ class PostController extends Controller
      */
     public function edit($slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::where([['slug', $slug], ['deleted_at', '0']])->firstOrFail();
         return view('create', ['post' => $post, 'isEdit' => true]);
     }
 
@@ -85,7 +85,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $posts = Post::where('id', $request->id)->firstOrFail();
+        $posts = Post::where([['id', $request->id], ['deleted_at', '0']])->firstOrFail();
         $posts->post_name = $request->title;
         $posts->author_name = $request->author_name;
         $posts->content = $request->content;
@@ -101,6 +101,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Auth::user()->user_type != 'admin') {
+            abort(403, 'You are not authorized to delete post.');
+        }
+        $post = Post::where('id', $id)->firstOrFail();
+        $post->deleted_at = '1';
+        $post->save();
+        return redirect()->route('post.index');
     }
 }

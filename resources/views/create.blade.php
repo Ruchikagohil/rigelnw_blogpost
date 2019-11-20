@@ -6,7 +6,14 @@
         <div class="col-md-8">
             <div class="card">
                 @isset($isEdit)
-                <div class="card-header">Update Post</div>
+                <div class="card-header">
+                    <h4 class="float-left">Update Post</h4>
+                <form action="{{ url('/post/'. $post->id) }}" method="post" class="float-right">
+                    @method('DELETE')
+                    @csrf
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+                </div>
                 @else
                 <div class="card-header">Create New Post</div>
                 @endisset
