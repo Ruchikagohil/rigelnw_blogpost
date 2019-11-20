@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Post;
 
-class GuestController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class GuestController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -43,7 +43,7 @@ class GuestController extends Controller
         $posts->content = $request->content;
         $posts->created_by = \Auth::user()->name;
         $posts->save();
-        return redirect()->route('guest.show', ['guest' => $posts->slug]);
+        return redirect()->route('post.show', ['post' => $posts->slug]);
     }
 
     /**

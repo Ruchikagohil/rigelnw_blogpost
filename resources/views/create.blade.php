@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form action="{{ route('guest.store') }}" method="post">
+                    <form action="{{ route('post.store') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-md-6"><label>Title: </label></div>
