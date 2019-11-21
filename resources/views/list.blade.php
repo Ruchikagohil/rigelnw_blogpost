@@ -30,6 +30,11 @@
                     <td>
                     <a href="{{ url('/post/'. $post->slug) }}" class="btn btn-success">Show</a>
                     <a href="{{ url('/post/'. $post->slug .'/edit') }}" class="btn btn-info">Edit</a>
+                    <button class="btn btn-success" id="status-{{ $post->id }}" onclick="setStatus({{ $post->id }})">
+                        @if($post->status == 'Draft') Publish
+                        @else Draft
+                        @endif
+                    </button>
                     </td>
                     @endadminUser
                 </tr>                
@@ -37,4 +42,23 @@
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('script-content')
+<script>
+function setStatus(id) {
+    window.axios.patch(`/api/post/${id}`, 
+        {},
+        {'headers': {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }}
+        ).then((response) => {
+            document.getElementById("status-"+id).innerHTML=response.data.button_label;
+            alert(response.data.message);
+        }).catch((error) => {
+            console.log(error);
+        });
+}
+</script>
 @endsection

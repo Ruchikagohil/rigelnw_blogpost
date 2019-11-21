@@ -10,7 +10,6 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -108,5 +107,21 @@ class PostController extends Controller
         $post->deleted_at = '1';
         $post->save();
         return redirect()->route('post.index');
+    }
+
+    public function setStatus($id, Request $request) {
+        $buttonLabel = '';
+        $post = Post::where('id', $id)->firstOrFail();
+        if('Published' == $post->status) {
+            $post->status = 'Draft';
+            $buttonLabel = 'Publish';
+        } else {
+            $post->status = 'Published';
+            $buttonLabel = 'Draft';
+        }
+        $post->save();
+        return [ 'message' => 'Status changed to '. $post->status . ' for post '. $post->post_name
+            , 'button_label' => $buttonLabel
+        ];
     }
 }
