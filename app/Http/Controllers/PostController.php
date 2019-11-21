@@ -46,6 +46,7 @@ class PostController extends Controller
             'slug' => 'required|unique:posts',
             'author_name' => 'required'
         ]);
+
         $posts = new Post;
         $posts->post_name = $request->title;
         $posts->slug = $request->slug;

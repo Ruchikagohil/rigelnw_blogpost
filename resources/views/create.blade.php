@@ -47,20 +47,23 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-3"><label>Title: </label></div>
-                            <div class="col-md-9"><input type="text" name="title" placeholder="Enter Post Title" value="{{ $post->post_name }}" required></div>
+                            <div class="col-md-9"><input type="text" name="title" placeholder="Enter Post Title" value="{{ old('title') }}{{ $post->post_name }}" required></div>
                         </div>
                         <div class="row">
                             <div class="col-md-3"><label>Slug: </label></div>
-                            <div class="col-md-9"><input type="text" name="slug" placeholder="Enter Post Slug" value="{{ $post->slug }}" @isset($isEdit) disabled="disabled" @endisset required></div>
+                            <div class="col-md-9">
+                                <input type="text" name="slug" placeholder="Enter Post Slug" value="{{ old('slug') }}{{$post->slug }}" @isset($isEdit) disabled="disabled" @endisset required>
+                                {{ $errors->post->first('slug') }}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3"><label>Author Name: </label></div>
-                            <div class="col-md-9"><input type="text" name="author_name" placeholder="Enter Post Author Name" value="{{ $post->author_name }}" required></div>
+                            <div class="col-md-9"><input type="text" name="author_name" placeholder="Enter Post Author Name" value="{{ old('author_name') }}{{ $post->author_name }}" required></div>
                         </div>
                         <div class="row">
                             <div class="col-md-3"><label>Content: </label></div>
                             <div class="col-md-9">                                
-                                <textarea id="content" name="content">{{ $post->content }}</textarea>
+                                <textarea id="content" name="content">{{ old('content') }}{{ $post->content }}</textarea>
                             </div>
                         </div>
                         <div class="row">
