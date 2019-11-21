@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+    <div class="">
+        <a href="{{ url('/post') }}" class="btn btn-primary">Back</a>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -11,11 +14,12 @@
                 <form action="{{ url('/post/'. $post->id) }}" method="post" class="float-right">
                     @method('DELETE')
                     @csrf
+                    <a href="{{ url('/post/create') }}" class="btn btn-primary">Create Post</a>
                     <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
                 </div>
                 @else
-                <div class="card-header">Create New Post</div>
+                <div class="card-header"><h4>Create New Post</h4></div>
                 @endisset
 
                 <div class="card-body">

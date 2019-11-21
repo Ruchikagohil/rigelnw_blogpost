@@ -121,7 +121,8 @@ class PostController extends Controller
         }
         $post->save();
         return [ 'message' => 'Status changed to '. $post->status . ' for post '. $post->post_name
-            , 'button_label' => $buttonLabel
+            , 'button_label' => $buttonLabel ,
+            'post_status' => $post->status
         ];
     }
 }
