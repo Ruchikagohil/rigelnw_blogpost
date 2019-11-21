@@ -41,6 +41,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'slug' => 'required|unique:posts',
+            'author_name' => 'required',
+            'content' => 'required'
+        ]);
         $posts = new Post;
         $posts->post_name = $request->title;
         $posts->slug = $request->slug;
@@ -84,6 +90,11 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        $validatedData = $request->validate([
+            'title' => 'required',           
+            'author_name' => 'required',
+            'content' => 'required'
+        ]);
         $posts = Post::where([['id', $request->id], ['deleted_at', '0']])->firstOrFail();
         $posts->post_name = $request->title;
         $posts->author_name = $request->author_name;

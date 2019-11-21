@@ -22,6 +22,15 @@
                 <div class="card-header"><h4>Create New Post</h4></div>
                 @endisset
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -38,19 +47,19 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6"><label>Title: </label></div>
-                            <div class="col-md-6"><input type="text" name="title" value="{{ $post->post_name }}"></div>
+                            <div class="col-md-6"><input type="text" name="title" value="{{ $post->post_name }}" required></div>
                         </div>
                         <div class="row">
                             <div class="col-md-6"><label>Slug: </label></div>
-                            <div class="col-md-6"><input type="text" name="slug" value="{{ $post->slug }}" @isset($isEdit) disabled="disabled" @endisset></div>
+                            <div class="col-md-6"><input type="text" name="slug" value="{{ $post->slug }}" @isset($isEdit) disabled="disabled" @endisset required></div>
                         </div>
                         <div class="row">
                             <div class="col-md-6"><label>Author Name: </label></div>
-                            <div class="col-md-6"><input type="text" name="author_name" value="{{ $post->author_name }}"></div>
+                            <div class="col-md-6"><input type="text" name="author_name" value="{{ $post->author_name }}" required></div>
                         </div>
                         <div class="row">
                             <div class="col-md-6"><label>Content: </label></div>
-                            <div class="col-md-6"><textarea name="content">{{ $post->content }}</textarea></div>
+                            <div class="col-md-6"><textarea name="content" required>{{ $post->content }}</textarea></div>
                         </div>
                         <div class="row">
                             <div class="col-md-12"><input type="submit" name="submit"></div>                            
