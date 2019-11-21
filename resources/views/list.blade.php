@@ -24,7 +24,7 @@
                     <td>{{ $post->post_name }}</td>
                     <td>{{ $post->slug }}</td>
                     <td>{{ $post->author_name }}</td>
-                    <td>{{ $post->content }}</td>
+                    <td>{!!html_entity_decode($post->content)!!}</td>
                 <td id="chng_status-{{ $post->id }}">{{ $post->status}}</td>
                     @adminUser
                     <td>{{ $post->created_by}}</td>
@@ -37,6 +37,10 @@
                         @endif
                     </button>
                     </td>
+                    @else
+                    <td>
+                       <a href="{{ url('/post/'. $post->slug) }}" class="btn btn-success">Show</a>
+                    </a>
                     @endadminUser
                 </tr>                
             @endforeach   

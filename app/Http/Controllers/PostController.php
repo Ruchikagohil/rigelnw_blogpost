@@ -44,8 +44,7 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'slug' => 'required|unique:posts',
-            'author_name' => 'required',
-            'content' => 'required'
+            'author_name' => 'required'
         ]);
         $posts = new Post;
         $posts->post_name = $request->title;
@@ -92,8 +91,7 @@ class PostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required',           
-            'author_name' => 'required',
-            'content' => 'required'
+            'author_name' => 'required'
         ]);
         $posts = Post::where([['id', $request->id], ['deleted_at', '0']])->firstOrFail();
         $posts->post_name = $request->title;

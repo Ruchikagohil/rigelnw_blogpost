@@ -6,8 +6,8 @@
         <a href="{{ url('/post') }}" class="btn btn-primary">Back</a>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-12">
+            <div class="card m-3">
                 @isset($isEdit)
                 <div class="card-header">
                     <h4 class="float-left">Update Post</h4>
@@ -46,29 +46,42 @@
                     @endisset
                         @csrf
                         <div class="row">
-                            <div class="col-md-6"><label>Title: </label></div>
-                            <div class="col-md-6"><input type="text" name="title" value="{{ $post->post_name }}" required></div>
+                            <div class="col-md-3"><label>Title: </label></div>
+                            <div class="col-md-9"><input type="text" name="title" placeholder="Enter Post Title" value="{{ $post->post_name }}" required></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6"><label>Slug: </label></div>
-                            <div class="col-md-6"><input type="text" name="slug" value="{{ $post->slug }}" @isset($isEdit) disabled="disabled" @endisset required></div>
+                            <div class="col-md-3"><label>Slug: </label></div>
+                            <div class="col-md-9"><input type="text" name="slug" placeholder="Enter Post Slug" value="{{ $post->slug }}" @isset($isEdit) disabled="disabled" @endisset required></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6"><label>Author Name: </label></div>
-                            <div class="col-md-6"><input type="text" name="author_name" value="{{ $post->author_name }}" required></div>
+                            <div class="col-md-3"><label>Author Name: </label></div>
+                            <div class="col-md-9"><input type="text" name="author_name" placeholder="Enter Post Author Name" value="{{ $post->author_name }}" required></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6"><label>Content: </label></div>
-                            <div class="col-md-6"><textarea name="content" required>{{ $post->content }}</textarea></div>
+                            <div class="col-md-3"><label>Content: </label></div>
+                            <div class="col-md-9">                                
+                                <textarea id="content" name="content">{{ $post->content }}</textarea>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12"><input type="submit" name="submit"></div>                            
                         </div>
                     </form>
-                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script-content')
+<script>
+$(document).ready(function() {
+    $('#content').summernote({
+        placeholder: 'Enter Post Content',
+        tabsize: 2,
+        height: 100
+      });
+});
+</script>
 @endsection

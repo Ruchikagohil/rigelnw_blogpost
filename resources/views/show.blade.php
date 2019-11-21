@@ -38,7 +38,7 @@
         </div>
         <div class="row">
             <div class="col-md-3">Content:</div>
-            <div class="col-md-9">{{ $post->content }}</div>
+            <div class="col-md-9">{!!html_entity_decode($post->content)!!}</div>
         </div>
         <div class="row">
             <div class="col-md-3">Status:</div>

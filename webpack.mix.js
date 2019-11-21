@@ -11,5 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js(['resources/js/app.js',
+      'resources/js/summernote-bs4.js'], 'public/js')
+   .sass('resources/sass/app.scss', 'public/css')
+   .styles('resources/css/summernote-bs4.css', 'public/css/summernote.css');
+
+mix.copyDirectory('resources/css/font', 'public/css/font');
