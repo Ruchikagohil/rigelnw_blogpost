@@ -15,6 +15,8 @@
                 @adminUser
                 <th>Created By</th>
                 <th>Action</th>
+                @else
+                <th>Action</th>
                 @endadminUser
             </tr>
         </thead>
@@ -25,7 +27,7 @@
                     <td>{{ $post->slug }}</td>
                     <td>{{ $post->author_name }}</td>
                     <td>{!!html_entity_decode($post->content)!!}</td>
-                <td id="chng_status-{{ $post->id }}">{{ $post->status}}</td>
+                    <td id="chng_status-{{ $post->id }}">{{ $post->status}}</td>
                     @adminUser
                     <td>{{ $post->created_by}}</td>
                     <td>
